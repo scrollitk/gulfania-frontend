@@ -1,0 +1,21 @@
+/* Custom List Style */
+.custom-list ul {
+  list-style-type: none; /* Remove default bullets */
+  padding-left: 0; /* Adjust padding as needed */
+  margin-left: 0; /* Adjust margin as needed */
+}
+
+.custom-list ul li {
+  position: relative;
+  padding-left: 20px; /* Space for custom bullet */
+  margin-bottom: 10px; /* Space between list items */
+}
+
+.custom-list ul li::before {
+  content: '•'; /* Unicode bullet character */
+  position: absolute;
+  left: 0; /* Align with the start of the line */
+  top: -5px; /* Align with the top of the line */
+  color: black; /* Bullet color */
+  font-size: 20px; /* Bullet size */
+}

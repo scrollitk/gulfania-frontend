@@ -42,7 +42,12 @@ export default function VendorBlock({ vendor, stats }: VendorProps) {
             </Link>
           </Text>
           <div className="mt-2 flex items-center">
-            <Rate allowHalf allowClear defaultValue={stats.averageRating} />
+            <Rate
+              allowHalf
+              allowClear
+              defaultValue={stats.averageRating}
+              rating={stats.averageRating}
+            />
             <p className="ml-2 text-gray-dark md:ml-3">
               <span>(</span> {vendor.totalReview} <span>)</span>
             </p>

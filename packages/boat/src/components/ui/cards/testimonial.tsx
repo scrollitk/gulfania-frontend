@@ -34,6 +34,7 @@ export default function TestimonialCard({
           allowHalf
           allowClear
           defaultValue={rating}
+          rating={rating}
           characterClassName="h-[14px] w-[14px] 3xl:h-[18px] 3xl:w-[18px]"
         />
       </div>

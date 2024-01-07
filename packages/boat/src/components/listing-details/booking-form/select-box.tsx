@@ -11,7 +11,6 @@ import Button from '@/components/ui/button';
 interface selectedProps {
   adults: number;
   child: number;
-  pets: boolean;
 }
 
 interface SelecBoxProps {
@@ -29,7 +28,6 @@ export default function SelectBox({
 }: SelecBoxProps) {
   const [adults, setAdults] = useState(defaultSelected.adults);
   const [child, setChild] = useState(defaultSelected.child);
-  const [pets, setPets] = useState(defaultSelected.pets);
 
   return (
     <div className={className}>
@@ -61,7 +59,7 @@ export default function SelectBox({
             <div className="flex w-full items-center justify-between">
               <div className="  text-sm xl:text-base">
                 <h5 className="font-bold text-gray-dark">Adults</h5>
-                <p className="font-normal text-gray xl:mt-1">Age 18+</p>
+                <p className="font-normal text-gray xl:mt-1">Age 18-65</p>
               </div>
               <Counter
                 count={adults}
@@ -72,7 +70,7 @@ export default function SelectBox({
             <div className="flex w-full items-center justify-between">
               <div className="  text-sm xl:text-base">
                 <h5 className="font-bold text-gray-dark">Children</h5>
-                <p className="font-normal text-gray xl:mt-1">Age 1-7</p>
+                <p className="font-normal text-gray xl:mt-1">Age 3-17</p>
               </div>
               <Counter
                 count={child}
@@ -80,50 +78,6 @@ export default function SelectBox({
                 onCount={(val) => setChild(val)}
               />
             </div>
-            <div className="flex items-center justify-between">
-              <h5 className="  text-base font-bold text-gray-dark">Pets</h5>
-              <div className="flex items-center gap-3 xl:gap-7">
-                <Radio
-                  readOnly
-                  label="Yes"
-                  checked={pets}
-                  onChange={() => setPets(!pets)}
-                  className="[&>div>div]:!p-0"
-                  labelClassName="!text-sm xl:!text-base"
-                  inputClassName={clsx(
-                    pets &&
-                      '!border-gray-lightest focus:!ring-1 focus:!ring-offset-0 focus:!ring-gray-dark ring-1 !ring-gray-dark'
-                  )}
-                />
-                <Radio
-                  readOnly
-                  label="No"
-                  checked={!pets}
-                  onChange={() => setPets(!pets)}
-                  className="[&>div>div]:!p-0"
-                  labelClassName="!text-sm xl:!text-base"
-                  inputClassName={clsx(
-                    !pets &&
-                      '!border-gray-lightest focus:!ring-1 focus:!ring-offset-0 focus:!ring-gray-dark ring-1 !ring-gray-dark'
-                  )}
-                />
-              </div>
-            </div>
-            <Listbox.Option className="mt-4" value={0}>
-              <Button
-                variant="solid"
-                className="w-full"
-                onClick={() =>
-                  onChange({
-                    adults: adults,
-                    child: child,
-                    pets: pets,
-                  })
-                }
-              >
-                Apply
-              </Button>
-            </Listbox.Option>
           </Listbox.Options>
         </div>
       </Listbox>

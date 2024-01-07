@@ -32,8 +32,8 @@ export default function ChatBlock() {
             Still have questions?
           </Text>
           <p className="mb-8 leading-6 text-gray">
-            Get a fast response about property amenities, check-in times, and
-            general questions.
+            Message us for personalized itineraries, and vacation planning
+            straight to you.
           </p>
           <Button
             size="xl"

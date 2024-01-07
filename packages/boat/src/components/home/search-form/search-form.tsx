@@ -72,12 +72,12 @@ export default function FindTripForm() {
           price on the right hotel for you.
         </Text>
       </div>
-      <SearchAutocomplete 
+      <SearchAutocomplete
         onLoad={onLoad}
         onPlacesChanged={onPlacesChanged}
         loader={
           <LocationInput
-            label='Loading...'
+            label="Loading..."
             icon={<MapMarkerIcon className="h-6 w-6 text-gray" />}
             className="mb-3"
             disabled
@@ -125,7 +125,7 @@ export default function FindTripForm() {
         className="w-full !py-[14px] text-sm !font-bold uppercase leading-6 md:!py-[17px] md:text-base lg:!rounded-xl 3xl:!py-[22px]"
         rounded="lg"
         size="xl"
-        style={{backgroundColor: '#ea580c'}}
+        style={{ backgroundColor: '#ea580c' }}
       >
         Submit
       </Button>

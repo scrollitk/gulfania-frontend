@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import { vendorData } from 'public/data/listing-details';
 import RelatedListingBlock from '@/components/listing-details/related-listings/related-listings-block';
 import ListingDetails from '@/components/listing-details/listing-details-block';
@@ -16,7 +16,6 @@ interface TourData {
   // other fields...
 }
 
-
 export default function ListingDetailsPage({
   params,
 }: {
@@ -27,24 +26,32 @@ export default function ListingDetailsPage({
   const [tourData, setTourData] = useState<TourData>({});
 
   useEffect(() => {
-    fetch(`http://localhost:3005/v1/travelbooking/from/tour-details/public/${slug}/for/65538448b78add9eaa02d417`, {
-      headers: {
-        'x-api-key': 'GCMUDiuY5a7WvyUNt9n3QztToSHzK7Uj'
+    fetch(
+      `http://localhost:3005/v1/travelbooking/from/tour-details/public/${slug}/for/65538448b78add9eaa02d417`,
+      {
+        headers: {
+          'x-api-key': 'GCMUDiuY5a7WvyUNt9n3QztToSHzK7Uj',
+        },
       }
-    }).then(response => response.json())
-    .then(tourData => {
-      if(tourData && tourData.data.travelBooking) {
-        setTourData(tourData.data.travelBooking);
-        localStorage.setItem('tourData', JSON.stringify(tourData.data.travelBooking));
-      }
-    }).catch(error => {
-      console.log('error ', error);
-    })
+    )
+      .then((response) => response.json())
+      .then((tourData) => {
+        if (tourData && tourData.data.travelBooking) {
+          setTourData(tourData.data.travelBooking);
+          localStorage.setItem(
+            'tourData',
+            JSON.stringify(tourData.data.travelBooking)
+          );
+        }
+      })
+      .catch((error) => {
+        console.log('error ', error);
+      });
 
     return () => {
       localStorage.removeItem('tourData');
-    }
-  }, [])
+    };
+  }, [slug]);
 
   return (
     <>

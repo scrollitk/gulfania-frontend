@@ -87,24 +87,24 @@ const Rate = forwardRef<any, RateProps>(
               // Handle the undefined case, maybe return a default component or null
               return null; // Example
             }
-           // Determine if the current star should be active (colored)
-          const isActive = index < rating; // Replace currentRating with your rating value
-          const starColor = isActive ? '#ea580c' : '#gray'; // Active color and inactive color
-          return (
-            
-            <div
-              className={clsx(
-                '[&>svg]:fill-current',
-                rateClasses.size[size],
-                characterClassName
-              )}
-              style={{ color: starColor }}
-            >
-              {Array.isArray(character)
-                ? character[index as number]
-                : character}
-            </div>
-          )}}
+            // Determine if the current star should be active (colored)
+            const isActive = index < rating; // Replace currentRating with your rating value
+            const starColor = isActive ? '#ea580c' : '#gray'; // Active color and inactive color
+            return (
+              <div
+                className={clsx(
+                  '[&>svg]:fill-current',
+                  rateClasses.size[size],
+                  characterClassName
+                )}
+                style={{ color: starColor }}
+              >
+                {Array.isArray(character)
+                  ? character[index as number]
+                  : character}
+              </div>
+            );
+          }}
           className={clsx(
             rateClasses.base,
             rateClasses.firstStar,

@@ -60,6 +60,7 @@ export default function AddReview() {
                 className="mt-3"
                 allowClear
                 defaultValue={0}
+                rating={0}
                 value={value}
                 size="xl"
                 onChange={onChange}

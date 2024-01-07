@@ -5,7 +5,7 @@ import { topBoats } from 'public/data/top-boats';
 import ListingCard from '@/components/ui/cards/listing';
 import Button from '@/components/ui/button';
 
-export default function ExploreListings() {
+export default function ExploreListings({ travelList }: any) {
   const [list, setList] = useState(12);
   const [isLoading, setIsLoading] = useState(false);
   function handleLoadMore() {
@@ -18,19 +18,29 @@ export default function ExploreListings() {
   return (
     <div>
       <div className="mt-1 grid grid-cols-1 gap-x-5 gap-y-8 xs:grid-cols-2 lg:grid-cols-3 3xl:gap-y-10 4xl:grid-cols-4">
-        {topBoats.slice(0, list).map((item, index) => (
+        {travelList.slice(0, list).map((item: any, index: number) => (
           <ListingCard
             key={`explore-boat-${index}`}
             id={`explore-boat-${index}`}
-            slides={item.thumbnail}
-            time={item.time}
-            caption={item.caption}
-            title={item.title}
-            slug={item.slug}
+            slides={item.imageUploads}
+            time={''}
+            caption={item.categories[0].name}
+            title={item.name}
+            slug={item._id}
             location={item.location}
-            price={item.price}
-            ratingCount={item.ratingCount}
-            rating={item.rating}
+            price={`AED ${
+              item.listingPricesInAllCurrencies?.find(
+                (price: any) => price.currencyCode === 'AED'
+              ).originalPrice
+            }`}
+            ratingCount={'4'}
+            rating={4}
+            discountPrice={`AED ${
+              item.listingPricesInAllCurrencies?.find(
+                (price: any) => price.currencyCode === 'AED'
+              ).finalPrice
+            }`}
+            tag={item.tag}
           />
         ))}
       </div>

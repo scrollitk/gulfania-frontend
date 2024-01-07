@@ -25,12 +25,12 @@ export default function ListingDetails(props: any) {
         <div className="w-full">
           <ListingDetailsHeroBlock vendor={props.tourData} />
           <DescriptionBlock description={props.tourData.shortSummary} />
-          <EquipmentBlock equipment={vendorData.equipment} />
-          <SpecificationBlock specifications={vendorData.specifications} />
-          <ProductDetails />
-          <VendorBlock stats={reviewsData.stats} vendor={vendorData.vendor} />
-          <LocationBlock />
-          <CalenderBlock />
+          <EquipmentBlock equipment={props.tourData} />
+          {/* <SpecificationBlock specifications={vendorData.specifications} /> */}
+          {/* <ProductDetails /> */}
+          {/* <VendorBlock stats={reviewsData.stats} vendor={vendorData.vendor} /> */}
+          {/* <LocationBlock /> */}
+          {/* <CalenderBlock /> */}
           <ReviewBlock reviewsData={reviewsData} />
           <ChatBlock />
         </div>
@@ -38,6 +38,7 @@ export default function ListingDetails(props: any) {
           <div className="sticky top-32 4xl:top-40">
             <BookingForm
               price={vendorData.price}
+              tourData={props.tourData}
               averageRating={reviewsData.stats.averageRating}
               totalReviews={reviewsData.stats.totalReview}
             />

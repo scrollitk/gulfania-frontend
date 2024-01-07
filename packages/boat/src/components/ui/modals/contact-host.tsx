@@ -79,7 +79,7 @@ export default function ContactHost() {
             <Link href={Routes.private.inbox}>{vendor.name}</Link>
           </Text>
           <div className="mt-1 flex items-center md:mt-2">
-            <Rate allowHalf allowClear defaultValue={stats.averageRating} />
+            <Rate allowHalf allowClear defaultValue={stats.averageRating} rating={stats.averageRating} />
             <p className="ml-3   text-sm text-gray-dark md:text-base">
               <span>(</span> {vendor.totalReview} <span>)</span>
             </p>

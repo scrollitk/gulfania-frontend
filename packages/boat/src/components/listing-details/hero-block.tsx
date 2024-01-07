@@ -75,10 +75,12 @@ export default function ListingDetailsHeroBlock({
         </Text>
         <div className="mt-3 flex items-center gap-2 leading-4 text-gray-dark md:mt-4">
           {vendor?.descriptors?.map((description: any) => {
-            return (<>
-            <span className="mt-1 block h-1.5 w-1.5 rounded-full bg-gray-dark"></span>
-               <p>{description?.name}</p>
-            </>)
+            return (
+              <>
+                <span className="mt-1 block h-1.5 w-1.5 rounded-full bg-gray-dark"></span>
+                <p>{description?.name}</p>
+              </>
+            );
           })}
         </div>
       </div>

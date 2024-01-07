@@ -41,6 +41,7 @@ export default function ReviewCard({
             allowHalf
             allowClear
             defaultValue={rating}
+            rating={rating}
             size="lg"
           />
           <p className="mt-1 text-sm leading-5 text-gray-dark md:mt-2">

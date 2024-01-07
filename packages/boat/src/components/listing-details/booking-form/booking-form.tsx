@@ -2,7 +2,7 @@
 
 import { z } from 'zod';
 import clsx from 'clsx';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import SelectBox from '@/components/listing-details/booking-form/select-box';
@@ -12,6 +12,7 @@ import Button from '@/components/ui/button';
 
 interface BookingFormProps {
   price: number;
+  tourData: any;
   averageRating: number;
   totalReviews: number;
   className?: string;
@@ -52,7 +53,6 @@ const BookingSchema = z
     selected: z.object({
       adults: z.number().min(1, 'Minimum 1 Adult required!'),
       child: z.number(),
-      pets: z.boolean(),
     }),
   })
   .refine(({ startDate, endDate }) => startDate < endDate, {
@@ -64,6 +64,7 @@ type BookingSchemaType = z.infer<typeof BookingSchema>;
 
 export default function BookingForm({
   price,
+  tourData,
   averageRating,
   totalReviews,
   className,
@@ -78,7 +79,6 @@ export default function BookingForm({
       selected: {
         adults: 0,
         child: 0,
-        pets: false,
       },
     },
     resolver: zodResolver(BookingSchema),
@@ -86,10 +86,34 @@ export default function BookingForm({
 
   const [minEndDate, setMinEndDate] = useState(getValues('startDate'));
   const [focus, setFocus] = useState<boolean>(false);
+  const maxDate = new Date();
+  maxDate.setDate(maxDate.getDate() + 90);
+
+  const [activeCurrency, SetActiveCurrency] = useState('AED');
 
   function handleBooking(data: any) {
     console.log(data);
   }
+
+  // Assuming tourData contains necessary price details
+  const pricingDetails = tourData?.listingPricesInAllCurrencies?.find(
+    (currency: any) => currency.currencyCode === activeCurrency
+  );
+
+  // Constructing the list dynamically based on pricingDetails
+  const dynamicList = [
+    {
+      title: `${activeCurrency} ${pricingDetails?.originalPrice} * 3 nights`,
+      money: pricingDetails?.originalPrice * 3, // Example calculation, adjust as needed
+      type: 'price',
+    },
+    pricingDetails?.bestDiscount && {
+      title: 'Discount',
+      money: pricingDetails?.finalPrice,
+      type: 'discount',
+    },
+    // ... Add other fees like cleaning, service, etc., if available in pricingDetails
+  ].filter(Boolean); // Filters out any falsey entries (e.g., when there's no discount)
 
   return (
     <form
@@ -100,10 +124,33 @@ export default function BookingForm({
         className
       )}
     >
-      <div className="flex items-center justify-between gap-3  ">
-        <p className="text-xl font-bold text-gray-dark xl:text-[22px]">
-          ${price} <span className="text-base">/ night</span>
+      <div className="flex items-center justify-between gap-3">
+        <p className="text-xl text-gray-dark xl:text-[14px]">
+          {tourData?.listingPricesInAllCurrencies?.map((currency: any) => {
+            if (activeCurrency === currency?.currencyCode) {
+              return (
+                <React.Fragment key={currency.currencyCode}>
+                  {/* Conditional rendering based on discount */}
+                  {currency?.bestDiscount > 0 ? (
+                    <>
+                      <span className="line-through">
+                        {activeCurrency} {currency?.originalPrice}
+                      </span>
+                      <span className="ml-2 font-bold xl:text-[20px]">
+                        {activeCurrency} {currency?.finalPrice}
+                      </span>
+                    </>
+                  ) : (
+                    <span className="font-bold xl:text-[20px]">
+                      {activeCurrency} {currency?.originalPrice}
+                    </span>
+                  )}
+                </React.Fragment>
+              );
+            }
+          })}
         </p>
+
         <p className="inline-flex flex-shrink-0 items-center gap-2">
           <Staricon className="xl:w-h-5 h-4 w-4 xl:h-5" />
           <span className="text-base font-bold text-gray-dark">
@@ -118,6 +165,7 @@ export default function BookingForm({
           </span>
         </p>
       </div>
+
       <div
         className={clsx(
           'relative mt-6 grid gap-3 rounded-t-lg border border-b-0 border-gray-lighter',
@@ -143,6 +191,7 @@ export default function BookingForm({
               onClickOutside={() => setFocus(false)}
               placeholderText="Add date"
               minDate={new Date()}
+              maxDate={maxDate}
               selected={value}
               onChange={(date: Date) => {
                 setMinEndDate(date);
@@ -203,16 +252,20 @@ export default function BookingForm({
         reserve
       </Button>
       <ul className="mt-3 xl:mt-5">
-        {list.map((item) => (
+        {dynamicList.map((item, index) => (
           <li
-            key={item.title}
+            key={index}
             className="flex items-center justify-between py-1.5 text-base capitalize text-gray-dark first:pt-0 last:border-t last:border-gray-lighter last:pb-0"
           >
             <span className="font-normal">{item.title}</span>
             {item.type === 'discount' ? (
-              <span className="font-bold text-red">-${item.money}</span>
+              <span className="font-bold text-red">
+                -{activeCurrency} {item.money}
+              </span>
             ) : (
-              <span className="font-bold">${item.money}</span>
+              <span className="font-bold">
+                {activeCurrency} {item.money}
+              </span>
             )}
           </li>
         ))}

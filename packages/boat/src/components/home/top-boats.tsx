@@ -13,7 +13,7 @@ import {
   Autoplay,
 } from '@/components/ui/slider';
 
-function BoatGrid() {
+function BoatGrid({ title, travelTickets }: any) {
   return (
     <div className="testimonial relative">
       <Swiper
@@ -51,21 +51,29 @@ function BoatGrid() {
           },
         }}
       >
-        {dubaiExperiences?.map((item: any, index: any) => (
+        {travelTickets?.map((item: any, index: any) => (
           <SwiperSlide key={`testimonial-${index}`}>
             <ListingCard
               key={`top-boat-grid-${index}`}
               id={`top-boat-grid-${index}`}
-              slides={item.thumbnail}
-              time={item.time}
-              caption={item.caption}
-              title={item.title}
-              slug={item.slug}
+              slides={item.imageUploads}
+              time={''}
+              caption={title}
+              title={item.name}
+              slug={item._id}
               location={item.location}
-              price={item.price}
-              ratingCount={item.ratingCount}
-              rating={item.rating}
-              discountPrice={item.discountedPrice}
+              price={`AED ${
+                item.listingPricesInAllCurrencies?.find(
+                  (price: any) => price.currencyCode === 'AED'
+                ).originalPrice
+              }`}
+              ratingCount={'4'}
+              rating={4}
+              discountPrice={`AED ${
+                item.listingPricesInAllCurrencies?.find(
+                  (price: any) => price.currencyCode === 'AED'
+                ).finalPrice
+              }`}
               tag={item.tag}
               // user={item.user}
             />
@@ -92,19 +100,24 @@ function BoatGrid() {
   );
 }
 
-export default function TopBoats() { 
+export default function TopBoats({ category }: any) {
   const { state } = useTimeout();
 
   return (
     <Section
       className="group/section container-fluid mt-12 overflow-hidden lg:mt-16"
-      title="Top boat rentals"
+      title={category?.name}
       description="Unsatiable it considered invitation he traveling insensible."
       headerClassName="items-end mb-4 md:mb-5 xl:mb-6 gap-5"
       rightElement={<SeeMore />}
     >
       {!state && <ListingCardLoader />}
-      {state && <BoatGrid />}
+      {state && (
+        <BoatGrid
+          title={category?.name}
+          travelTickets={category?.travelTickets}
+        />
+      )}
     </Section>
   );
 }

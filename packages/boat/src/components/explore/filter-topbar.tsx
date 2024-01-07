@@ -14,15 +14,15 @@ const sortingOptions = [
   { id: 'opt-1', label: 'Newer listed', checked: true },
 ];
 
-export default function FilterTopbar() {
+export default function FilterTopbar({ travelList }: any) {
   let [drawerSate, setDrawerState] = useAtom(drawerStateAtom);
   const [selected, setSelected] = useState(sortingOptions[0]);
   return (
     <div className="mb-8 flex items-center justify-between">
       <Text className="text-sm font-bold text-gray-dark md:text-base">
-        Showing 1 - 20{' '}
+        Showing 1 - {travelList.length > 20 ? 20 : travelList.length}{' '}
         <Text className="font-normal text-gray" tag="span">
-          out of 2356 Products{' '}
+          out of {travelList.length} Destinations{' '}
         </Text>
       </Text>
       <Button
@@ -40,7 +40,7 @@ export default function FilterTopbar() {
       >
         <AdjustmentsHorizontalIcon className="h-auto w-6 lg:w-7" />
       </Button>
-      <SelectBox
+      {/* <SelectBox
         value={selected}
         label="Sort by:"
         variant="outline"
@@ -52,7 +52,7 @@ export default function FilterTopbar() {
         optionsContainerClassName="max-w-[166px] right-0 md:[&>li]:!text-base"
         buttonClassName="!px-4 !py-2 flex justify-between w-full text-base cursor-pointer !pr-10"
         onChange={(data: any) => setSelected(data)}
-      />
+      /> */}
     </div>
   );
 }

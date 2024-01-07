@@ -23,7 +23,7 @@ interface FilterTypes {
   className?: string;
 }
 
-export default function Filter({ className }: FilterTypes) {
+export default function Filter({ travelList, className }: any) {
   const router = useRouter();
   let [drawerSate, setDrawerState] = useAtom(drawerStateAtom);
   const searchParams = useSearchParams();

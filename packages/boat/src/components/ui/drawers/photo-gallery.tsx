@@ -21,11 +21,12 @@ export default function PhotoGallery() {
   const { openGallery } = useGallery();
   const [gallary, setGallary] = useState({} as any);
 
-
   useEffect(() => {
-    const tourData  = localStorage.getItem('tourData') ? JSON.parse(localStorage.getItem('tourData') ?? "") : [];
+    const tourData = localStorage.getItem('tourData')
+      ? JSON.parse(localStorage.getItem('tourData') ?? '')
+      : [];
     setGallary(tourData);
-  }, [])
+  }, []);
 
   return (
     <div className="min-h-full w-full bg-white">

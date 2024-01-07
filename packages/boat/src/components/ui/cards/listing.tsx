@@ -30,9 +30,8 @@ export default function ListingCard({
   price,
   rating,
   ratingCount,
-  discountPrice
+  discountPrice,
 }: ListingItemTypes) {
-
   return (
     <>
       <div className="listing-card group/item relative inline-flex w-full flex-col">
@@ -52,7 +51,6 @@ export default function ListingCard({
                 }}
               >
                 {slides?.map((slide, index) => (
-                  
                   <SwiperSlide key={`slide-${index}`}>
                     <Image
                       className="aspect-[34/25] bg-gray-lighter"
@@ -90,32 +88,36 @@ export default function ListingCard({
             </div>
           </Link>
         </div>
-        <Link href={Routes.public.listingDetails(title)}>
+        <Link href={Routes.public.listingDetails(slug)}>
           <div className="content pt-3">
             <div className="mb-1 flex items-center gap-5">
-              <span className="relative flex items-center text-gray-dark before:absolute before:-right-3 before:block before:h-1 before:w-1 before:rounded-full before:bg-gray-dark">
+              {/* <span className="relative flex items-center text-gray-dark before:absolute before:-right-3 before:block before:h-1 before:w-1 before:rounded-full before:bg-gray-dark">
                 {time}
-              </span>
+              </span> */}
               <span>{caption}</span>
             </div>
-            <h4 className="text-ellipsis text-gray-dark 2xl:mb-1.5 font-bold">{title}</h4>
+            <h4 className="text-ellipsis text-gray-dark 2xl:mb-1.5 font-bold xl:text-[20px] sm:text-[10px]">
+              {title}
+            </h4>
             <p className="mb-3 text-gray-light xl:mb-3">{tag}</p>
             <div className="flex flex-wrap items-center justify-between gap-3">
               <p className="text-gray-light">
-                {!discountPrice ? <>
-                  <span className="font-bold text-gray-dark xl:text-[18px] 3xl:text-xl">
-                  {price}
-                </span>{' '}
-                </> : <>
-                <span className="font-bold text-gray-dark xl:text-[18px] 3xl:text-xl line-through">
-                  {price}
-                </span>{' '}
-                <span className="font-bold text-gray-dark xl:text-[18px] 3xl:text-xl ml-2">
-                  {discountPrice}
-                </span>{' '}
-                </>}
-                
-                
+                {!discountPrice ? (
+                  <>
+                    <span className="font-bold text-gray-dark xl:text-[18px] 3xl:text-xl">
+                      {price}
+                    </span>{' '}
+                  </>
+                ) : (
+                  <>
+                    <span className="font-bold text-gray-dark xl:text-[18px] 3xl:text-xl line-through">
+                      {price}
+                    </span>{' '}
+                    <span className="font-bold text-gray-dark xl:text-[18px] 3xl:text-xl ml-2">
+                      {discountPrice}
+                    </span>{' '}
+                  </>
+                )}
               </p>
               <div className="flex items-center gap-3 leading-7">
                 <Rate
