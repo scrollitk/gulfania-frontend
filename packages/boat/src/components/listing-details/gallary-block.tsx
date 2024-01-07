@@ -10,7 +10,7 @@ interface GallaryBlockProps {
   images: string[];
 }
 
-export default function GallaryBlock({ images }: GallaryBlockProps) {
+export default function GallaryBlock({ images }: any) {
   const [drawerSate, setDrawerState] = useAtom(drawerStateAtom);
 
   function handleClick() {
@@ -31,7 +31,7 @@ export default function GallaryBlock({ images }: GallaryBlockProps) {
           onClick={handleClick}
         >
           <Image
-            src={images[0]}
+            src={images?.[0]?.url}
             alt="pic"
             fill
             priority
@@ -44,7 +44,7 @@ export default function GallaryBlock({ images }: GallaryBlockProps) {
           onClick={handleClick}
         >
           <Image
-            src={images[1]}
+            src={images?.[1]?.url}
             alt="pic"
             fill
             priority
@@ -57,7 +57,7 @@ export default function GallaryBlock({ images }: GallaryBlockProps) {
           onClick={handleClick}
         >
           <Image
-            src={images[2]}
+            src={images?.[2]?.url}
             alt="pic"
             fill
             priority

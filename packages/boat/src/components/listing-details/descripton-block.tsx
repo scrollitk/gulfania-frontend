@@ -13,7 +13,7 @@ export default function DescriptionBlock({
   return (
     <Section className="py-5 lg:py-6 xl:py-7">
       <Text className="!text-base !leading-7 !text-secondary">
-        {description}
+       <span dangerouslySetInnerHTML={{ __html: description }}></span>
       </Text>
     </Section>
   );

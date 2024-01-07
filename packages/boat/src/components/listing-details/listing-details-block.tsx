@@ -16,14 +16,15 @@ import { useModal } from '@/components/modals/context';
 import Button from '@/components/ui/button';
 import ProductDetails from './product-details';
 
-export default function ListingDetails() {
+export default function ListingDetails(props: any) {
   const { openModal } = useModal();
+
   return (
     <>
       <div className="flex justify-between gap-5 lg:gap-8 xl:gap-12 4xl:gap-16">
         <div className="w-full">
-          <ListingDetailsHeroBlock vendor={vendorData.vendor} />
-          <DescriptionBlock description={vendorData.description} />
+          <ListingDetailsHeroBlock vendor={props.tourData} />
+          <DescriptionBlock description={props.tourData.shortSummary} />
           <EquipmentBlock equipment={vendorData.equipment} />
           <SpecificationBlock specifications={vendorData.specifications} />
           <ProductDetails />

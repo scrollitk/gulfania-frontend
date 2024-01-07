@@ -11,12 +11,21 @@ import { useModal } from '@/components/modals/context';
 import ActionIcon from '@/components/ui/action-icon';
 import Text from '@/components/ui/typography/text';
 import Button from '@/components/ui/button';
+import { useEffect, useState } from 'react';
+import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 
 export default function PhotoGallery() {
-  const { gallary } = vendorData;
+  // const { gallary } = vendorData;
   const [drawerSate, setDrawerState] = useAtom(drawerStateAtom);
   const { openModal } = useModal();
   const { openGallery } = useGallery();
+  const [gallary, setGallary] = useState({} as any);
+
+
+  useEffect(() => {
+    const tourData  = localStorage.getItem('tourData') ? JSON.parse(localStorage.getItem('tourData') ?? "") : [];
+    setGallary(tourData);
+  }, [])
 
   return (
     <div className="min-h-full w-full bg-white">
@@ -56,14 +65,14 @@ export default function PhotoGallery() {
           Photo Gallery
         </Text>
         <div className="mt-6 columns-2 gap-x-2 lg:gap-x-3">
-          {gallary.map((item, index) => (
+          {gallary?.imageUploads?.map((item: any, index: number) => (
             <div
               className="group relative mb-2 cursor-pointer overflow-hidden rounded-md transition-all duration-300 md:rounded-xl lg:mb-3"
               key={`gallery-img-${index}`}
               onClick={() => openGallery('MODAL_GALLERY', index)}
             >
               <Image
-                src={item}
+                src={item?.url}
                 alt="gallery-img"
                 fill
                 className="!static object-cover"

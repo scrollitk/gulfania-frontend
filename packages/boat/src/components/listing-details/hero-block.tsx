@@ -9,7 +9,7 @@ import Text from '@/components/ui/typography/text';
 import Button from '@/components/ui/button';
 
 interface ListingDetailsHeroBlockProps {
-  vendor: VendorTypes;
+  vendor: any;
 }
 
 // share icons
@@ -71,14 +71,15 @@ export default function ListingDetailsHeroBlock({
           tag="h2"
           className="mt-2 !text-2xl uppercase !leading-7 md:!text-[26px] md:!leading-10 2xl:!text-[28px] 4xl:!text-3xl"
         >
-          {vendor.boatName}
+          {vendor.name}
         </Text>
         <div className="mt-3 flex items-center gap-2 leading-4 text-gray-dark md:mt-4">
-          <p>{vendor.boatGuests} guests</p>
-          <span className="mt-1 block h-1.5 w-1.5 rounded-full bg-gray-dark"></span>
-          <p>{vendor.boatCabins} cabins</p>
-          <span className="mt-1 block h-1.5 w-1.5 rounded-full bg-gray-dark"></span>
-          <p>{vendor.boatBathrooms} bathrooms</p>
+          {vendor?.descriptors?.map((description: any) => {
+            return (<>
+            <span className="mt-1 block h-1.5 w-1.5 rounded-full bg-gray-dark"></span>
+               <p>{description?.name}</p>
+            </>)
+          })}
         </div>
       </div>
       <div className="relative">

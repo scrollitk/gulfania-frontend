@@ -51,7 +51,7 @@ function BoatGrid() {
           },
         }}
       >
-        {dubaiExperiences?.map((item, index) => (
+        {dubaiExperiences?.map((item: any, index: any) => (
           <SwiperSlide key={`testimonial-${index}`}>
             <ListingCard
               key={`top-boat-grid-${index}`}
